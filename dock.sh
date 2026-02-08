@@ -15,6 +15,9 @@ dock_items_to_add=(
   "/Applications/Ollama.app"
   "/Applications/Microsoft 365 Copilot.app"
   "/Applications/iTerm.app"
+  "/Users/marco/Applications/Brave Browser Apps.localized/Whimsical.app"
+  "/Applications/Obsidian.app"
+  "/Applications/iTerm.app"
   "/Users/marco/Applications/Rider.app"
   "/Users/marco/Applications/IntelliJ IDEA.app"
   "/Users/marco/Applications/WebStorm.app"
@@ -25,7 +28,9 @@ dock_items_to_add=(
   "/Applications/WhatsApp.app"
   "/System/Applications/FaceTime.app"
   "/System/Applications/Reminders.app"
+  "/System/Applications/Notes.app"
   "/Applications/Affinity.app"
+  "/Applications/UTM.app"
   "/Applications/UGREEN NAS.app"
   "/System/Applications/System Settings.app"
   "/System/Applications/App Store.app"
@@ -40,9 +45,9 @@ done
 
 # Add spacers after specific apps
 dockutil --add '' --type spacer --section apps --after "Microsoft Teams" --no-restart
-dockutil --add '' --type spacer --section apps --after "Microsoft 365 Copilot" --no-restart
+dockutil --add '' --type spacer --section apps --after "Obsidian" --no-restart
 dockutil --add '' --type spacer --section apps --after "Azure VPN Client" --no-restart
-dockutil --add '' --type spacer --section apps --after "Reminders" --no-restart
+dockutil --add '' --type spacer --section apps --after "Notes" --no-restart
 dockutil --add '' --type spacer --section apps --after "System Settings" --no-restart
 
 # Restart Dock once after all changes
