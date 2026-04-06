@@ -14,7 +14,6 @@ dock_items_to_add=(
   "/Applications/Claude.app"
   "/Applications/Ollama.app"
   "/Applications/Microsoft 365 Copilot.app"
-  "/Applications/iTerm.app"
   "/Users/marco/Applications/Brave Browser Apps.localized/Whimsical.app"
   "/Applications/Obsidian.app"
   "/Applications/iTerm.app"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Mac OS X configuration
 #
-# @see: http://secrets.blacktree.com/?showapp=com.apple.finder
+# @see: https://web.archive.org/web/20150324082916/http://secrets.blacktree.com/
 # @see: https://github.com/herrbischoff/awesome-macos-command-line
 
 # Exit if not running as root
@@ -171,7 +171,7 @@ chflags nohidden ~/Library
 ###############################################################################
 
 # Set the icon size of Dock items
-defaults write com.apple.dock tilesize -int 30
+defaults write com.apple.dock tilesize -int 26
 
 # Enable magnification
 defaults write com.apple.dock magnification -bool true
@@ -237,6 +237,9 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 # been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 # sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+
+# Disable Spotlight keyboard shortcut (Cmd + Space)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = 'standard'; }; }"
 
 sudo mdutil -a -i off
 # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist

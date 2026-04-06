@@ -109,7 +109,7 @@ run_backup() {
         print_warning "Mackup is not installed or config not found at ~/.mackup.cfg"
         exit 1
     else
-        mackup backup
+        mackup backup --force
         print_success "Mackup backup complete"
         echo ""
         print_info "Mackup files backed up to location specified in ~/.mackup.cfg"
