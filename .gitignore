@@ -1,2 +1,4 @@
 mackup/*
 !mackup/README.md
+obj/
+bin/

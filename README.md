@@ -6,23 +6,37 @@ Uses:
 - [mas](https://github.com/mas-cli/mas) for 'App Store' installations
 - [dockutil](https://github.com/kcrawford/dockutil) for dock manipulation
 - [mackup](https://github.com/lra/mackup) to backup several app preferences
-- [dotfiles.sh](https://github.com/marcopelegrini/macos-setup/blob/main/dotfiles.sh) to symlink dotfiles
-- [compare-defaults.sh](https://github.com/marcopelegrini/macos-setup/blob/main/compare-defaults.sh) to find out differences in macos preferences
+- dotfiles command to symlink dotfiles
+- compare-defaults command to find differences in macOS preferences
+
+## Install dotnet
+
+`curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin`
+
+## Build
+
+- `dotnet build MacSetup/MacSetup.csproj`
+
+## Run
+
+- `dotnet run --project MacSetup/MacSetup.csproj -- --help`
+- `dotnet run --project MacSetup/MacSetup.csproj -- setup --mode personal`
+- `dotnet run --project MacSetup/MacSetup.csproj -- backup --mode corporate`
 
 ## Setup new macos
 
 - Get this folder to the macos via Git, NAS, etc.
-- Run `setup.sh setup`
+- Run `dotnet run --project MacSetup/MacSetup.csproj -- setup`
 
 ## Backup existing macos
 
-- Run `setup.sh backup`
+- Run `dotnet run --project MacSetup/MacSetup.csproj -- backup`
 
 ## Macos settings
 
-- Run `compare-defaults.sh`
+- Run `dotnet run --project MacSetup/MacSetup.csproj -- compare-defaults`
 
 Make the change needed in another terminal
 
 - Finish the script
-- Identify the difference and save it to the `osx.sh`
+- Identify the difference and save it to the macOS defaults command set in the .NET app
