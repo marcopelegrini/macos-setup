@@ -1,4 +1,4 @@
-namespace MacSetup;
+namespace MacSetup.SetupServices;
 
 internal sealed class MacOsDefaultsService(AppPaths paths, CommandRunner commandRunner, PromptService prompts) : ISetupBackupService
 {

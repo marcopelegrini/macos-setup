@@ -11,23 +11,12 @@ Run from the repository root:
     dotnet run --project MacSetup/MacSetup.csproj -- <command> [options]
 
 Commands:
-    setup                         Run the full setup workflow
-    backup                        Back up current configuration (Brewfile, mackup)
-    homebrew <setup|backup>       Manage Homebrew packages
-      setup                         Install packages from Brewfile
-      backup                        Export installed packages to Brewfile
-    dotfiles                      Symlink dotfiles from ~/OSX/dotfiles to ~
-    dock                          Configure the macOS Dock via dockutil
-    mas                           Install App Store apps via mas-cli
-    osx                           Apply macOS system defaults (requires sudo)
-    compare-defaults              Diff macOS defaults before and after a change
+    setup   Run the full setup workflow
+    backup  Back up current macOS (Brewfile, mackup, etc)
 
 Examples:
     dotnet run --project MacSetup/MacSetup.csproj -- setup
     dotnet run --project MacSetup/MacSetup.csproj -- backup
-    dotnet run --project MacSetup/MacSetup.csproj -- homebrew setup
-    dotnet run --project MacSetup/MacSetup.csproj -- dotfiles
-    dotnet run --project MacSetup/MacSetup.csproj -- osx
 """;
 }
 

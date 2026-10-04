@@ -1,4 +1,4 @@
-namespace MacSetup;
+namespace MacSetup.SetupServices;
 
 internal interface ISetupBackupService
 {

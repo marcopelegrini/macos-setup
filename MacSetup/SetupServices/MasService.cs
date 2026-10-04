@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging;
+namespace MacSetup.SetupServices;
 
-namespace MacSetup;
+using Microsoft.Extensions.Logging;
 
 internal sealed class MasService(CommandRunner commandRunner, PromptService prompts, ILogger<MasService> logger) : ISetupBackupService
 {
@@ -12,26 +12,26 @@ internal sealed class MasService(CommandRunner commandRunner, PromptService prom
 
     public async Task SetupAsync(CancellationToken cancellationToken)
     {
-        logger.LogInformation("\n━━━ 🛍️ App Store Apps");
+        logger.LogInformation("━━━ 🛍️ App Store Apps");
         var hasMas = await commandRunner.CaptureAsync("/usr/bin/which", ["mas"], cancellationToken) is not null;
         if (!hasMas)
         {
-            logger.LogWarning("⚠️ mas-cli is not installed. Skipping App Store apps.");
+            logger.LogWarning("⚠️ mas-cli is not installed. Skipping App Store apps");
             return;
         }
 
-        logger.LogInformation("📲 Open the App Store and sign in with your Apple ID.");
+        logger.LogInformation("📲 Open the App Store and sign in with your Apple ID");
         prompts.Pause("Press Enter when signed in...");
         await commandRunner.RunAsync("mas", ["install", "1561788435"], cancellationToken: cancellationToken);
         await commandRunner.RunAsync("mas", ["install", "1352778147"], cancellationToken: cancellationToken);
-        logger.LogInformation("✅ Mac App Store apps installed.");
+        logger.LogInformation("✅ Mac App Store apps installed");
     }
 
     public Task BackupAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        logger.LogInformation("\n━━━ 🛍️ Backup App Store Apps");
-        logger.LogInformation("Skipping App Store backup: no backup operation is defined.");
+        logger.LogInformation("━━━ 🛍️ Backup App Store Apps");
+        logger.LogInformation("Skipping App Store backup: no backup operation is defined");
         return Task.CompletedTask;
     }
 }

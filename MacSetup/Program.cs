@@ -1,4 +1,5 @@
 using MacSetup;
+using MacSetup.SetupServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,7 +16,6 @@ builder.Services.AddSingleton<MacSetupApp>();
 builder.Services.AddSingleton<AppPaths>();
 builder.Services.AddSingleton<CommandRunner>();
 builder.Services.AddSingleton<PromptService>();
-builder.Services.AddSingleton<PlatformService>();
 builder.Services.AddSingleton<ISetupBackupService, SudoersService>();
 builder.Services.AddSingleton<ISetupBackupService, HomebrewService>();
 builder.Services.AddSingleton<ISetupBackupService, DotfilesService>();
@@ -27,9 +27,6 @@ builder.Services.AddSingleton<ISetupBackupService, MacOsDefaultsService>();
 builder.Services.AddSingleton<ISetupBackupService, CompareDefaultsService>();
 
 using var host = builder.Build();
-
-var platform = host.Services.GetRequiredService<PlatformService>();
-platform.EnsureMacOs();
 
 var app = host.Services.GetRequiredService<MacSetupApp>();
 var exitCode = await app.RunAsync(args, CancellationToken.None);

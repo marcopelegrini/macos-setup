@@ -1,4 +1,4 @@
-namespace MacSetup;
+namespace MacSetup.SetupServices;
 
 internal sealed class CompareDefaultsService(CommandRunner commandRunner) : ISetupBackupService
 {

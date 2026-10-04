@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging;
+namespace MacSetup.SetupServices;
 
-namespace MacSetup;
+using Microsoft.Extensions.Logging;
 
 internal sealed class DotfilesService(AppPaths paths, PromptService prompts, ILogger<DotfilesService> logger) : ISetupBackupService
 {
@@ -13,7 +13,7 @@ internal sealed class DotfilesService(AppPaths paths, PromptService prompts, ILo
     public Task SetupAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        logger.LogInformation("\n━━━ 🔗 Install Dotfiles");
+        logger.LogInformation("━━━ 🔗 Install Dotfiles");
 
         if (!Directory.Exists(paths.DotfilesDirectory))
         {
@@ -50,15 +50,15 @@ internal sealed class DotfilesService(AppPaths paths, PromptService prompts, ILo
             logger.LogInformation("Linked {Name}", name);
         }
 
-        logger.LogInformation("✅ Dotfiles complete.");
+        logger.LogInformation("✅ Dotfiles complete");
         return Task.CompletedTask;
     }
 
     public Task BackupAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        logger.LogInformation("\n━━━ 🔗 Backup Dotfiles");
-        logger.LogInformation("Skipping dotfiles backup: no backup operation is defined.");
+        logger.LogInformation("━━━ 🔗 Backup Dotfiles");
+        logger.LogInformation("Skipping dotfiles backup: no backup operation is defined");
         return Task.CompletedTask;
     }
 }

@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging;
+namespace MacSetup.SetupServices;
 
-namespace MacSetup;
+using Microsoft.Extensions.Logging;
 
 internal sealed class HomebrewService(
     AppPaths paths,
@@ -16,7 +16,7 @@ internal sealed class HomebrewService(
 
     public async Task SetupAsync(CancellationToken cancellationToken)
     {
-        logger.LogInformation("\n━━━ 🍺 Install Homebrew, Apps and CLIs");
+        logger.LogInformation("━━━ 🍺 Install Homebrew, Apps and CLIs");
         var brewCommand = await GetBrewCommandAsync(cancellationToken);
         if (brewCommand is not null)
         {
@@ -57,7 +57,7 @@ internal sealed class HomebrewService(
 
     public async Task BackupAsync(CancellationToken cancellationToken)
     {
-        logger.LogInformation("\n━━━ 🍺 Backup Homebrew");
+        logger.LogInformation("━━━ 🍺 Backup Homebrew");
         var brewCommand = await GetBrewCommandAsync(cancellationToken);
         if (brewCommand is null)
         {
