@@ -1,0 +1,35 @@
+# Dock items, in order. Use an app name (searched in /Applications, then /System/Applications)
+# or an absolute path; `~` expands to the home folder. A `---` line adds a spacer.
+
+Brave Browser
+Microsoft Edge
+Microsoft Outlook
+Microsoft Teams
+---
+ChatGPT
+Claude
+Ollama
+Microsoft 365 Copilot
+~/Applications/Brave Browser Apps.localized/Whimsical.app
+Obsidian
+---
+iTerm
+~/Applications/Rider.app
+~/Applications/IntelliJ IDEA.app
+~/Applications/WebStorm.app
+Visual Studio Code
+Windows App
+Azure VPN Client
+---
+Messages
+WhatsApp
+FaceTime
+Reminders
+Notes
+---
+Affinity
+UTM
+UGREEN NAS
+System Settings
+---
+App Store

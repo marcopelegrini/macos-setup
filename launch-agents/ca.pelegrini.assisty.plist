@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>ca.pelegrini.assisty</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/Users/marco/OSX/bin/assisty</string>
+            <string>http://10.0.1.201:8080</string>
+        </array>
+        <key>LimitLoadToSessionType</key>
+        <string>Aqua</string>
+        <key>RunAtLoad</key>
+        <true />
+        <key>Nice</key>
+        <integer>10</integer>
+        <key>KeepAlive</key>
+        <false />
+        <key>AbandonProcessGroup</key>
+        <true />
+        <key>StandardErrorPath</key>
+        <string>/Users/marco/Library/Logs/ca.pelegrini.assisty.log</string>
+        <key>StandardOutPath</key>
+        <string>/Users/marco/Library/Logs/ca.pelegrini.assisty.log</string>
+    </dict>
+</plist>

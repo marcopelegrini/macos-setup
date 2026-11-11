@@ -1,0 +1,154 @@
+# macstrap: streamlines setting up and backing up macOS. Run `task --list` for available tasks.
+version: '3'
+
+silent: true
+
+vars:
+  REPO_ROOT: '{{joinPath .TASKFILE_DIR ".."}}'
+  BREWFILE: '{{.REPO_ROOT}}/Brewfile'
+  MACKUP_DIR: '{{.REPO_ROOT}}/mackup'
+  DOTFILES_DIR: '{{.HOME}}/OSX/dotfiles'
+  LAUNCH_AGENTS_SOURCE: '{{.REPO_ROOT}}/launch-agents'
+  LAUNCH_AGENTS_DESTINATION: '{{.HOME}}/Library/LaunchAgents'
+  SUDO_LOCAL_FILE: /etc/pam.d/sudo_local
+  SUDO_LOCAL_RULE: auth sufficient pam_tid.so
+  SUDO_LOCAL_MODE: '0444'
+  BANNER: ════════════════════════════════════════════
+
+env:
+  BREWFILE: '{{.BREWFILE}}'
+  MACKUP_DIR: '{{.MACKUP_DIR}}'
+  DOTFILES_DIR: '{{.DOTFILES_DIR}}'
+  LAUNCH_AGENTS_SOURCE: '{{.LAUNCH_AGENTS_SOURCE}}'
+  LAUNCH_AGENTS_DESTINATION: '{{.LAUNCH_AGENTS_DESTINATION}}'
+  SUDO_LOCAL_FILE: '{{.SUDO_LOCAL_FILE}}'
+  SUDO_LOCAL_RULE: '{{.SUDO_LOCAL_RULE}}'
+  SUDO_LOCAL_MODE: '{{.SUDO_LOCAL_MODE}}'
+  DOCK_CONFIG: '{{.TASKFILE_DIR}}/config/dock.txt'
+  MAS_CONFIG: '{{.TASKFILE_DIR}}/config/mas.txt'
+  OSX_CONFIG: '{{.TASKFILE_DIR}}/config/osx.sh'
+  # Set by the setup workflow so each step offers a timed skip prompt.
+  MACSTRAP_WORKFLOW: '{{.WORKFLOW | default "false"}}'
+
+tasks:
+  default:
+    cmds:
+      - '{{.TASK_EXE}} --list'
+
+  setup:
+    desc: Run the full setup workflow
+    interactive: true
+    cmds:
+      - echo "🚀 {{.BANNER}}"
+      - echo "🛠️  macOS Setup Wizard"
+      - 'echo "📦 Includes: sudo, dotfiles, launch agents, Homebrew, App Store apps, Dock, Mackup, Raycast, macOS settings"'
+      - echo "🔐 Sudo may be requested multiple times during this run"
+      - echo "🚀 {{.BANNER}}"
+      - task: setup-steps
+
+  setup-steps:
+    internal: true
+    interactive: true
+    prompt: Continue with setup?
+    cmds:
+      - task: sudo:setup
+        vars: { WORKFLOW: 'true' }
+      - task: homebrew:setup
+        vars: { WORKFLOW: 'true' }
+      - task: dotfiles:setup
+        vars: { WORKFLOW: 'true' }
+      - task: launch-agents:setup
+        vars: { WORKFLOW: 'true' }
+      - task: dock:setup
+        vars: { WORKFLOW: 'true' }
+      - task: mas:setup
+        vars: { WORKFLOW: 'true' }
+      - task: mackup:setup
+        vars: { WORKFLOW: 'true' }
+      - task: raycast:setup
+        vars: { WORKFLOW: 'true' }
+      - task: osx:setup
+        vars: { WORKFLOW: 'true' }
+      - echo "⚠️ A restart is required for settings to take effect"
+      - echo "🎉 Setup flow finished"
+
+  backup:
+    desc: Back up the current macOS configuration (Brewfile, Mackup, Raycast)
+    interactive: true
+    cmds:
+      - echo "🧳 {{.BANNER}}"
+      - echo "💾 macOS Backup Wizard"
+      - echo "⚠️ This will backup your current macOS configuration"
+      - echo "🧳 {{.BANNER}}"
+      - task: homebrew:backup
+      - task: mackup:backup
+      - task: raycast:backup
+      - echo "🎉 Backup flow finished"
+      - 'echo "📝 Next: Commit and push the updated Brewfile to Git"'
+      - 'echo "☁️ Next: Store the mackup backup folder safely (NAS, cloud, etc.)"'
+      - 'echo "🔐 Next: Store the Raycast backup file safely"'
+
+  sudo:setup:
+    desc: Enable Touch ID for sudo
+    interactive: true
+    cmds: [bash scripts/sudo.sh setup]
+
+  homebrew:setup:
+    desc: Install Homebrew and apps from the Brewfile
+    interactive: true
+    cmds: [bash scripts/homebrew.sh setup]
+
+  homebrew:backup:
+    desc: Dump installed Homebrew packages and review them against the Brewfile
+    interactive: true
+    cmds: [bash scripts/homebrew.sh backup]
+
+  dotfiles:setup:
+    desc: Symlink dotfiles into the home folder
+    interactive: true
+    cmds: [bash scripts/dotfiles.sh setup]
+
+  launch-agents:setup:
+    desc: Symlink and load/reload launch agent plists
+    interactive: true
+    cmds: [bash scripts/launch-agents.sh setup]
+
+  dock:setup:
+    desc: Replace Dock items with config/dock.txt
+    interactive: true
+    cmds: [bash scripts/dock.sh setup]
+
+  mas:setup:
+    desc: Install App Store apps from config/mas.txt
+    interactive: true
+    cmds: [bash scripts/mas.sh setup]
+
+  mackup:setup:
+    desc: Restore application preferences with Mackup
+    interactive: true
+    cmds: [bash scripts/mackup.sh setup]
+
+  mackup:backup:
+    desc: Back up application preferences with Mackup
+    interactive: true
+    cmds: [bash scripts/mackup.sh backup]
+
+  raycast:setup:
+    desc: Guide the manual Raycast settings import
+    interactive: true
+    cmds: [bash scripts/raycast.sh setup]
+
+  raycast:backup:
+    desc: Guide the manual Raycast settings export
+    interactive: true
+    cmds: [bash scripts/raycast.sh backup]
+
+  osx:setup:
+    desc: Apply macOS settings from config/osx.sh
+    interactive: true
+    cmds: [bash scripts/osx.sh setup]
+
+  compare-defaults:
+    desc: Compare macOS preferences before and after a manual change
+    interactive: true
+    cmds: [bash scripts/compare-defaults.sh]

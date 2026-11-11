@@ -1,0 +1,4 @@
+# Mac App Store app IDs installed by `task mas:setup`, one per line.
+
+1561788435
+1352778147
